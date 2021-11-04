@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jsun"
-version = "1.0.dev0"
+version = "1.0a1"
 description = "JSON encoding & decoding with extra features"
 authors = ["Wyatt Baldwin <self@wyattbaldwin.com>"]
 license = "MIT"
