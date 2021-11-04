@@ -1,5 +1,9 @@
 # Change log for jsun
 
+## 1.0 - unreleased
+
+In progress...
+
 ## 1.0a1 - 2021-11-03
 
 This is the initial standalone version of this package. It was spun out
