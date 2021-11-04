@@ -99,7 +99,7 @@ first released but before I'd heard of it.
 
 ### Differences with TOML
 
-- Parentheses are used instead of quotes to avoid splitting on dots
+- Parentheses are used instead of quotes to avoid splitting keys on dots
 - Objects created using `{}` syntax (AKA "inline tables" in TOML) can
   span multiple lines
 - There are no arrays of tables
