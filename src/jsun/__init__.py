@@ -1,5 +1,7 @@
 # flake8: noqa
 
+__version__ = "1.0.dev0"
+
 from .exc import DecodeError, DecodeError as JSONDecodeError
 
 # Decode from JSON to Python
