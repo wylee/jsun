@@ -11,9 +11,9 @@ simply updating imports to use `jsun` instead of `json`.
 ## Extra decoding features
 
 - Trailing commas
- 
+
 - Line comments starting with //
- 
+
 - All valid Python ints and floats:
   - Binary, octal, hex
   - Underscore separators
@@ -103,6 +103,25 @@ first released but before I'd heard of it.
 - Objects created using `{}` syntax (AKA "inline tables" in TOML) can
   span multiple lines
 - There are no arrays of tables
+- Subobjects can be nested (currently only one level deep) using the
+  following syntax (which is an alternative to using nested object
+  literal syntax):
+
+      [envs]
+      [.base]
+      debug = false
+      [.development]
+      debug = true
+      api_url = "http://localhost:8000/api"
+      [.development.database]
+      host = "localhost"
+      name = "xyz_dev"
+      [.production]
+      api_url = "https://example.com/api"
+      [.production.database]
+      host = "database.example.com"
+      name = "xyz"
+
 - Others I'm not thinking of at the moment...
 
 ## About the name

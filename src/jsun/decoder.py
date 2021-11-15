@@ -248,17 +248,34 @@ def decode_ini(string, scanner):
     parser = ConfigParser(interpolation=ExtendedInterpolation())
     parser.optionxform = lambda option: option
     parser.read_string(string)
+    previous_section_name = None
 
     for section_name in parser.sections():
         obj = result
-        section_path = parse_ini_name(section_name)
+
+        if section_name.startswith("."):
+            nested = True
+            if previous_section_name is None:
+                raise INIDecodeError(
+                    section_name,
+                    1,
+                    "A section with a relative name must be nested in another section",
+                )
+            compound_name = f"{previous_section_name}.{section_name[1:]}"
+            section_path = parse_ini_name(compound_name)
+        else:
+            nested = False
+            section_path = parse_ini_name(section_name)
+
         for segment in section_path[:-1]:
             if segment not in obj:
                 obj[segment] = {}
             obj = obj[segment]
+
         obj[section_path[-1]] = section_config = {}
 
         section_items = parser[section_name]
+
         for raw_name, raw_value in section_items.items():
             obj = section_config
             path = parse_ini_name(raw_name)
@@ -268,6 +285,9 @@ def decode_ini(string, scanner):
                 obj = obj[segment]
             value, _ = scanner.scan(raw_value)
             obj[path[-1]] = value
+
+        if not nested:
+            previous_section_name = section_name
 
     return result
 

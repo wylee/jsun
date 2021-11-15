@@ -229,3 +229,28 @@ b = 2
         for name in bad_names:
             with self.subTest(name=name):
                 self.assertRaises(INIDecodeError, decode, name, ini=True)
+
+    def test_nested_sections(self):
+        path = Path(__file__).parent / "nested.ini"
+        obj = decode_file(path)
+        self.assertEqual(
+            obj,
+            {
+                "envs": {
+                    "base": {"debug": False},
+                    "development": {
+                        "debug": True,
+                        "database": {
+                            "host": "localhost",
+                            "name": "xyz_dev",
+                        },
+                    },
+                    "production": {
+                        "database": {
+                            "host": "db.example.com",
+                            "name": "xyz",
+                        },
+                    },
+                }
+            },
+        )
